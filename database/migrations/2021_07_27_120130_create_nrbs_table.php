@@ -30,6 +30,6 @@ class CreateNrbsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('nrbs');
+        Schema::dropIfExists('nrb');
     }
 }

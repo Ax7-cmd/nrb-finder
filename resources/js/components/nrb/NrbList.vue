@@ -16,17 +16,17 @@
                                     <i class="fa fa-file-import"></i>
                                     Import
                                 </button>
-                                <button type="button" class="btn btn-success">
+                                <button type="button" class="btn btn-success" @click="exportData">
                                     <i class="fa fa-file-excel"></i>
                                     Export
                                 </button>
                                 <br><br>
                                 <div class="input-group input-group-sm" style="width: 300px;">
-                                    <input type="text" name="table_search" class="form-control float-right"
-                                        placeholder="Search">
+                                    <input v-model="query.search" type="text" name="table_search"
+                                        class="form-control float-right" placeholder="Search">
 
                                     <div class="input-group-append">
-                                        <button type="submit" class="btn btn-default">
+                                        <button type="button" class="btn btn-default" @click="handleSearch">
                                             <i class="fas fa-search"></i>
                                         </button>
                                     </div>
@@ -45,130 +45,18 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>John Doe</td>
-                                        <td>11-7-2014</td>
-                                        <td><span class="tag tag-success">Approved</span></td>
+                                    <tr v-for="nrbData in data" :key="nrbData.no_faktur">
+                                        <td>{{nrbData.tgl_retur}}</td>
+                                        <td>{{nrbData.no_faktur}}</td>
+                                        <td>{{nrbData.amount}}</td>
+                                        <td>{{nrbData.no_draf_retur}}</td>
                                     </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Alexander Pierce</td>
-                                        <td>11-7-2014</td>
-                                        <td><span class="tag tag-warning">Pending</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Alexander Pierce</td>
-                                        <td>11-7-2014</td>
-                                        <td><span class="tag tag-warning">Pending</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td>Alexander Pierce</td>
-                                        <td>11-7-2014</td>
-                                        <td><span class="tag tag-warning">Pending</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>5</td>
-                                        <td>Alexander Pierce</td>
-                                        <td>11-7-2014</td>
-                                        <td><span class="tag tag-warning">Pending</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>6</td>
-                                        <td>Alexander Pierce</td>
-                                        <td>11-7-2014</td>
-                                        <td><span class="tag tag-warning">Pending</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>7</td>
-                                        <td>Alexander Pierce</td>
-                                        <td>11-7-2014</td>
-                                        <td><span class="tag tag-warning">Pending</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>8</td>
-                                        <td>Alexander Pierce</td>
-                                        <td>11-7-2014</td>
-                                        <td><span class="tag tag-warning">Pending</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>9</td>
-                                        <td>Alexander Pierce</td>
-                                        <td>11-7-2014</td>
-                                        <td><span class="tag tag-warning">Pending</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>10</td>
-                                        <td>Alexander Pierce</td>
-                                        <td>11-7-2014</td>
-                                        <td><span class="tag tag-warning">Pending</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>11</td>
-                                        <td>Alexander Pierce</td>
-                                        <td>11-7-2014</td>
-                                        <td><span class="tag tag-warning">Pending</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>12</td>
-                                        <td>Alexander Pierce</td>
-                                        <td>11-7-2014</td>
-                                        <td><span class="tag tag-warning">Pending</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>13</td>
-                                        <td>Alexander Pierce</td>
-                                        <td>11-7-2014</td>
-                                        <td><span class="tag tag-warning">Pending</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>14</td>
-                                        <td>Alexander Pierce</td>
-                                        <td>11-7-2014</td>
-                                        <td><span class="tag tag-warning">Pending</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>15</td>
-                                        <td>Alexander Pierce</td>
-                                        <td>11-7-2014</td>
-                                        <td><span class="tag tag-warning">Pending</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>16</td>
-                                        <td>Bob Doe</td>
-                                        <td>11-7-2014</td>
-                                        <td><span class="tag tag-primary">Approved</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>17</td>
-                                        <td>Mike Doe</td>
-                                        <td>11-7-2014</td>
-                                        <td><span class="tag tag-danger">Denied</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>18</td>
-                                        <td>Jim Doe</td>
-                                        <td>11-7-2014</td>
-                                        <td><span class="tag tag-success">Approved</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>19</td>
-                                        <td>Victoria Doe</td>
-                                        <td>11-7-2014</td>
-                                        <td><span class="tag tag-warning">Pending</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>20</td>
-                                        <td>Michael Doe</td>
-                                        <td>11-7-2014</td>
-                                        <td><span class="tag tag-primary">Approved</span></td>
-                                    </tr>
+                                </tbody>
+                                <tfoot v-if="query.more">
                                     <tr>
                                         <td colspan="4">Getting Data, Please wait..</td>
                                     </tr>
-                                </tbody>
+                                </tfoot>
                             </table>
                         </div>
                         <!-- /.card-body -->
@@ -187,13 +75,13 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form>
+                        <form @submit.prevent="importData()">
                             <div class="modal-body">
                                 <div class="form-group">
-                                    <label>Name</label>
-                                    <input v-model="form.name" type="text" name="name" class="form-control"
-                                        :class="{ 'is-invalid': form.errors.has('name') }">
-                                    <has-error :form="form" field="name"></has-error>
+                                    <label>File</label>
+                                    <input type="file" id="file" ref="file" class="form-control"
+                                        v-on:change="handleFileUpload()" v-bind:class="invalid" />
+                                    <div class="help-block invalid-feedback">{{ errors.file[0] }}</div>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -213,25 +101,98 @@
         components: {},
         data() {
             return {
-                data: {},
-                form: new Form(),
+                data: [],
+                query: {
+                    more: true,
+                    skip: 0,
+                    take: 20,
+                    search: '',
+                },
+                import: '',
+                errorStatus: '',
+                errors: {
+                    file: [],
+                },
             }
         },
         methods: {
             loadData() {
-                axios.get("api/nrb").then(({
-                    data
-                }) => (this.data = data.data));
+                axios.get("api/nrb", {
+                    params: this.query
+                }).then((response) => {
+                    const combinedA = [].concat(this.data, response.data.data);
+                    this.data = combinedA;
+                    this.query = response.data.message;
+                });
             },
-            handleScroll: function(e) {
-                console.log(e.srcElement.scrollHeight - e.srcElement.scrollTop);
-                console.log(e.srcElement.clientHeight);
-		    },
+            handleScroll: function (e) {
+                if (e.srcElement.scrollHeight - e.srcElement.scrollTop == e.srcElement.clientHeight) {
+                    if (this.query.more) {
+                        this.query.skip = this.query.skip + this.query.take;
+                        this.loadData();
+                    }
+                }
+            },
             newModal() {
-                this.form.reset();
+                this.$refs.file.value = null;
+                this.errorStatus = '';
                 $('#addNew').modal('show');
             },
-
+            importData() {
+                this.$Progress.start();
+                let formData = new FormData();
+                formData.append('file', this.import);
+                axios.post('api/nrb',
+                        formData, {
+                            headers: {
+                                'Content-Type': 'multipart/form-data'
+                            }
+                        }).then((data) => {
+                        if (data.data.success) {
+                            $('#addNew').modal('hide');
+                            Toast.fire({
+                                icon: 'success',
+                                title: data.data.message
+                            });
+                            this.$Progress.finish();
+                            this.loadData();
+                        } else {
+                            Toast.fire({
+                                icon: 'error',
+                                title: 'Some error occured! Please try again'
+                            });
+                            this.$Progress.finish();
+                        }
+                    })
+                    .catch((error) => {
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'Some error occured! Please try again'
+                        });
+                        if (error.response.data.errors != undefined) {
+                            this.errorStatus = 'is-invalid';
+                            this.errors.file = error.response.data.errors.file;
+                        } else {
+                            $('#addNew').modal('hide');
+                        }
+                        this.$Progress.finish();
+                    });
+            },
+            exportData() {
+                let routeData = this.$router.resolve({
+                    path: '/export-nrb?search=' + this.query.search
+                });
+                window.open(routeData.href, '_blank');
+            },
+            handleFileUpload() {
+                this.import = this.$refs.file.files[0];
+            },
+            handleSearch() {
+                this.data = [];
+                this.query.more = true;
+                this.query.skip = 0;
+                this.loadData();
+            },
         },
         mounted() {},
         created() {
@@ -240,7 +201,11 @@
             this.$Progress.finish();
         },
         filters: {},
-        computed: {},
+        computed: {
+            invalid: function () {
+                return this.errorStatus;
+            }
+        },
     }
 
 </script>

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\API\V1;
 
+use App\Exports\NrbExport;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Http\Requests\Nrb\NrbImportRequest;
+use App\Imports\NrbImport;
 use App\Models\Nrb;
+use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class NrbController extends BaseController
 {
@@ -18,7 +21,7 @@ class NrbController extends BaseController
      */
     public function __construct(Nrb $nrb)
     {
-        $this->middleware('auth:api');
+        $this->middleware('auth:api')->except('index', 'export');
         $this->nrb = $nrb;
     }
 
@@ -27,10 +30,36 @@ class NrbController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $nrb = $this->nrb->latest()->get();
-        return $this->sendResponse($nrb, 'Nrb list');
+        $skip = (int)$request->skip;
+        $take = (int)$request->take;
+        $search = $request->search;
+        $more = false;
+        $nrb = new Nrb;
+
+        if($search != '' && $search != null){
+            $nrb = $nrb->where('no_faktur', 'like', '%' . $search . '%')
+                ->orWhere('no_draf_retur', 'like', '%' . $search . '%');
+        }
+        $total = $nrb;
+        $total = $total->count();
+        if($skip > 0){
+            $nrb = $nrb->skip($skip);
+        }
+        if($skip+$take < $total){
+            $more = true;
+        }
+        if($take > 0){
+            $nrb = $nrb->take($take);
+        }
+        $nrb = $nrb->orderBy('id', 'asc')->get();
+        return $this->sendResponse($nrb, [
+            'more' => $more,
+            'skip' => $skip,
+            'take' => $take,
+            'search' => $search,
+        ]);
     }
 
     /**
@@ -49,9 +78,10 @@ class NrbController extends BaseController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(NrbImportRequest $request)
     {
-        return "import";
+        Excel::import(new NrbImport, $request->file('file'));
+        return $this->sendResponse([], 'Import Nrb Successfully');
     }
 
     /**
@@ -97,5 +127,14 @@ class NrbController extends BaseController
     public function destroy($id)
     {
         //
+    }
+
+    public function export(Request $request)
+    {
+        $search = $request->search;
+        if($search == null || $search == 'null'){
+            $search = '';
+        }
+        return Excel::download(new NrbExport($search), 'nrb-export_' . date('Y-m-d H:i:s') . '.xlsx');
     }
 }

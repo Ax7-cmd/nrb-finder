@@ -1,116 +1,149 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <title>{{config('app.name')}}</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+    <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Styles -->
-    <style>
-        html,
-        body {
-            background-color: #fff;
-            color: #636b6f;
-            font-family: 'Nunito', sans-serif;
-            font-weight: 200;
-            height: 100vh;
-            margin: 0;
-        }
 
-        .center {
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .full-height {
-            height: 100vh;
-        }
-
-        .flex-center {
-            align-items: center;
-            display: flex;
-            justify-content: center;
-        }
-
-        .position-ref {
-            position: relative;
-        }
-
-        .top-right {
-            position: absolute;
-            right: 10px;
-            top: 18px;
-        }
-
-        .content {
-            text-align: center;
-        }
-
-        .title {
-            font-size: 54px;
-        }
-
-        .links>a {
-            color: #636b6f;
-            padding: 0 25px;
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: .1rem;
-            text-decoration: none;
-            text-transform: uppercase;
-        }
-
-        .m-b-md {
-            margin-bottom: 30px;
-        }
-
-    </style>
+    <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
 </head>
 
-<body>
-    <div class="flex-center position-ref full-height">
-        @if (Route::has('login'))
-        <div class="top-right links">
-            @auth
-            <a href="{{ url('/home') }}">Home</a>
-            @else
-            <a href="{{ route('login') }}">Login</a>
+<body class="hold-transition layout-top-nav">
+    <div class="wrapper">
 
-            @if (Route::has('register'))
-            <a href="{{ route('register') }}">Register</a>
-            @endif
-            @endauth
-        </div>
-        @endif
-        <div class="content">
-            <div class="title m-b-md">
-                Prototipe Program NRB Finder
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
+            <div class="container">
+                <a href="/" class="navbar-brand">
+                    <img src="{{ asset('/images/logo.png') }}" alt="AdminLTE Logo"
+                        class="brand-image img-circle elevation-3" style="opacity: .8">
+                    <span class="brand-text font-weight-light">{{ config('app.name', 'Laravel') }}</span>
+                </a>
+
+                <!-- Right navbar links -->
+                <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
+                    <!-- Messages Dropdown Menu -->
+                    @if (Route::has('login'))
+                        @auth
+                        <li class="nav-item">
+                            <a href="{{ url('/dashboard') }}" class="nav-link">Dashboard</a>
+                        </li>
+                        @else
+                        <li class="nav-item">
+                            <a href="{{ route('login') }}" class="nav-link">Login</a>
+                        </li>
+                        @if (Route::has('register'))
+                        <li class="nav-item">
+                            <a href="{{ route('register') }}" class="nav-link">Register</a>
+                        </li>
+                        @endif
+                        @endauth
+                    @endif
+                </ul>
             </div>
-            <div class="row">
-                <table class="center">
-                    <tr>
-                        <td>
+        </nav>
+        <!-- /.navbar -->
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0"> Prototipe Program <small>NRB Finder</small></h1>
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </div>
+            <!-- /.content-header -->
+
+            <!-- Main content -->
+            <div class="content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 text-center">
                             <img src="{{ asset('/images/enseval-logo.png') }}" alt="Enseval" style="width:100px; padding:10px;">
-                        </td>
-                        <td>
                             <img src="{{ asset('/images/alfamart-logo.png') }}" alt="Enseval" style="width:100px; padding:10px;">
-                        </td>
-                        <td>
                             <img src="{{ asset('/images/alfamidi-logo.png') }}" alt="Enseval" style="width:100px; padding:10px;">
-                        </td>
-                        <td>
                             <img src="{{ asset('/images/dan-dan-logo.png') }}" alt="Enseval" style="width:100px; padding:10px;">
-                        </td>
-                    </tr>
-                </table>
+                        </div>
+                    </div>
+                    <!-- /.row -->
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-lg-10">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="card-tools">
+                                        <div class="input-group input-group-sm" style="width: 400px;">
+                                            <input type="text" name="table_search"
+                                                class="form-control float-right input-search" placeholder="Masukkan No. Nrb / No. Draf">
+
+                                            <div class="input-group-append">
+                                                <button type="button" class="btn btn-default" onclick="searchHome()">
+                                                    <i class="fas fa-search"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="table-home card-body table-responsive p-0 d-none " style="height: 400px;">
+                                    <table class="table table-head-fixed text-nowrap">
+                                        <thead>
+                                            <tr>
+                                                <th>Tgl Retur</th>
+                                                <th>No. Faktur</th>
+                                                <th>Amount (Rp.)</th>
+                                                <th>No. Draf Retur</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="nrb-list">
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.row -->
+                </div><!-- /.container-fluid -->
             </div>
+            <!-- /.content -->
         </div>
+        <!-- /.content-wrapper -->
+
+        <!-- Main Footer -->
+        <footer class="main-footer">
+            <!-- Default to the left -->
+            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights
+            reserved.
+        </footer>
     </div>
+    <!-- ./wrapper -->
+
+    <!-- REQUIRED SCRIPTS -->
+
+    <!-- jQuery -->
+    <script src="{{ mix('/js/app.js') }}"></script>
+    <script>
+        function searchHome(){
+            $('.nrb-list').html('');
+            $('.table-home').removeClass('d-none');
+            $.get("api/nrb?search="+$('.input-search').val(), function(data, status){
+                $.each(data.data, function(i, value) {
+                    console.log(value);
+                    $(".nrb-list").append("<tr><th>"+value.tgl_retur+"</th><th>"+value.no_faktur+"</th><th>"+value.amount+"</th><th>"+value.no_draf_retur+"</th></tr>");
+                });
+            });
+        }
+    </script>
 </body>
 
 </html>
