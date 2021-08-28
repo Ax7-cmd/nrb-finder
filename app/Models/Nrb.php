@@ -22,10 +22,12 @@ class Nrb extends Model
      * @var array
      */
     protected $fillable = [
-        'tgl_retur',
         'no_faktur',
-        'amount',
         'no_draf_retur',
+        'tgl_retur',
+        'branch',
+        'dir',
+        'amount',
     ];
 
     public function getCreatedAtAttribute($date)

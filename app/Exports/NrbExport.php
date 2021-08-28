@@ -19,7 +19,7 @@ class NrbExport implements FromCollection, WithHeadings
     public function collection()
     {
         $nrb = new Nrb;
-        $nrb = $nrb->select("tgl_retur", "no_faktur", "amount", "no_draf_retur", "created_at");
+        $nrb = $nrb->select("no_faktur","no_draf_retur","tgl_retur","branch","dir",  "amount",  "created_at");
         if($this->search != ''){
             $nrb = $nrb->where('no_faktur', 'like', '%' . $this->search . '%')
                 ->orWhere('no_draf_retur', 'like', '%' . $this->search . '%');
@@ -30,6 +30,6 @@ class NrbExport implements FromCollection, WithHeadings
 
     public function headings(): array
     {
-        return ["tgl_retur", "no_faktur", "amount", "no_draf_retur", "created_at"];
+        return ["no_faktur","no_draf_retur","tgl_retur","branch","dir",  "amount",  "created_at"];
     }
 }

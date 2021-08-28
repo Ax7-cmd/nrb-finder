@@ -25,7 +25,6 @@ class Rma extends Model
         'rr_no',
         'tgl_rma',
         'no_rma_oracle',
-        'amount',
     ];
 
     public function getCreatedAtAttribute($date)

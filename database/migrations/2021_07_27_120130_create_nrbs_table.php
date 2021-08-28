@@ -15,10 +15,12 @@ class CreateNrbsTable extends Migration
     {
         Schema::create('nrb', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('tgl_retur')->nullable();
             $table->string('no_faktur')->nullable();
-            $table->decimal('amount', $precision = 18, $scale = 2)->default(0.00);
             $table->string('no_draf_retur')->nullable();
+            $table->timestamp('tgl_retur')->nullable();
+            $table->string('branch')->nullable();
+            $table->string('dir')->nullable();
+            $table->decimal('amount', $precision = 18, $scale = 2)->default(0.00);
             $table->timestamps();
         });
     }

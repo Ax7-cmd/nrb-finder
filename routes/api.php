@@ -34,6 +34,10 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
     Route::apiResources([
         'nrb' => 'NrbController',
         'rma' => 'RmaController',
+        'trp' => 'TrpController',
+        'whs' => 'WhsController',
+        'acc' => 'AccController',
+        'fin' => 'FinController',
     ]);
 
     

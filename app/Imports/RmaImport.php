@@ -22,7 +22,6 @@ class RmaImport implements ToModel, WithHeadingRow
         $rma->rr_no = $row['rr_no'];
         $rma->tgl_rma = $row['tgl_rma'];
         $rma->no_rma_oracle = $row['no_rma_oracle'];
-        $rma->amount = $row['amount'];
         $rma->save();
         return $rma;
     }

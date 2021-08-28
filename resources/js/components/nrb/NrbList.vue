@@ -38,18 +38,24 @@
                             <table class="table table-head-fixed text-nowrap">
                                 <thead>
                                     <tr>
-                                        <th>Tgl Retur</th>
-                                        <th>No. Faktur</th>
-                                        <th>Amount (Rp.)</th>
+                                        <th>No. NRB</th>
                                         <th>No. Draf Retur</th>
+                                        <th>Tgl Retur</th>
+                                        <th>Branch</th>
+                                        <th>Direktorat</th>
+                                        <th>Amount (Rp.)</th>
+                                        
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr v-for="nrbData in data" :key="nrbData.no_faktur">
-                                        <td>{{nrbData.tgl_retur}}</td>
                                         <td>{{nrbData.no_faktur}}</td>
-                                        <td>{{nrbData.amount}}</td>
                                         <td>{{nrbData.no_draf_retur}}</td>
+                                        <td>{{nrbData.tgl_retur}}</td>
+                                        <td>{{nrbData.branch}}</td>
+                                        <td>{{nrbData.dir}}</td>
+                                        <td>{{ nrbData.amount | numberFormat }}</td>
+                                        
                                     </tr>
                                 </tbody>
                                 <tfoot v-if="query.more">
@@ -126,7 +132,7 @@
                 });
             },
             handleScroll: function (e) {
-                if (e.srcElement.scrollHeight - e.srcElement.scrollTop == e.srcElement.clientHeight) {
+                if (parseInt(e.srcElement.scrollHeight - e.srcElement.scrollTop) == parseInt(e.srcElement.clientHeight)) {
                     if (this.query.more) {
                         this.query.skip = this.query.skip + this.query.take;
                         this.loadData();
@@ -200,7 +206,20 @@
             this.loadData();
             this.$Progress.finish();
         },
-        filters: {},
+        filters: {
+                    numberFormat(value) 
+                    {
+                     if (parseInt(value))
+                        {
+                            value = parseInt(value);
+                            return value.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                        } 
+                            else 
+                            {
+                            return '0';
+                            }
+                    },
+                },
         computed: {
             invalid: function () {
                 return this.errorStatus;

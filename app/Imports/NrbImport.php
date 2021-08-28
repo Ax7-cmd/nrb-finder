@@ -19,10 +19,12 @@ class NrbImport implements ToModel, WithHeadingRow
         if (!$nrb) {
             $nrb = new Nrb();
         }
-        $nrb->tgl_retur = $row['tgl_retur'];
         $nrb->no_faktur = $row['no_faktur'];
-        $nrb->amount = $row['amount'];
         $nrb->no_draf_retur = $row['no_draf_retur'];
+        $nrb->tgl_retur = $row['tgl_retur'];
+        $nrb->branch = $row['branch'];
+        $nrb->dir = $row['dir'];
+        $nrb->amount = $row['amount'];
         $nrb->save();
         return $nrb;
     }

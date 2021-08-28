@@ -38,18 +38,16 @@
                             <table class="table table-head-fixed text-nowrap">
                                 <thead>
                                     <tr>
-                                        <th>RR No.</th>
-                                        <th>Tgl RMA</th>
-                                        <th>No. RMA di Orcale</th>
-                                        <th>Nilai (Rp.)</th>
+                                        <th>Tanggal RMA</th>
+                                        <th>No. RMA</th>
+                                        <th>No. RTV</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="nrbData in data" :key="nrbData.no_faktur">
-                                        <td>{{nrbData.rr_no}}</td>
-                                        <td>{{nrbData.tgl_rma}}</td>
-                                        <td>{{nrbData.no_rma_oracle}}</td>
-                                        <td>{{nrbData.amount}}</td>
+                                    <tr v-for="rmaData in data" :key="rmaData.no_rma_oracle">
+                                        <td>{{rmaData.tgl_rma}}</td>
+                                        <td>{{rmaData.no_rma_oracle}}</td>
+                                        <td>{{rmaData.rr_no}}</td>                                        
                                     </tr>
                                 </tbody>
                                 <tfoot v-if="query.more">
@@ -126,7 +124,7 @@
                 });
             },
             handleScroll: function (e) {
-                if (e.srcElement.scrollHeight - e.srcElement.scrollTop == e.srcElement.clientHeight) {
+                if (parseInt(e.srcElement.scrollHeight - e.srcElement.scrollTop) == parseInt(e.srcElement.clientHeight)) {
                     if (this.query.more) {
                         this.query.skip = this.query.skip + this.query.take;
                         this.loadData();

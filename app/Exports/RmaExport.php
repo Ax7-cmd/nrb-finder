@@ -19,7 +19,7 @@ class RmaExport implements FromCollection, WithHeadings
     public function collection()
     {
         $rma = new Rma;
-        $rma = $rma->select("rr_no", "tgl_rma", "no_rma_oracle", "amount", "created_at");
+        $rma = $rma->select("rr_no", "tgl_rma", "no_rma_oracle", "created_at");
         if($this->search != ''){
             $rma = $rma->where('rr_no', 'like', '%' . $this->search . '%')
                 ->orWhere('no_rma_oracle', 'like', '%' . $this->search . '%');
@@ -30,6 +30,6 @@ class RmaExport implements FromCollection, WithHeadings
 
     public function headings(): array
     {
-        return ["rr_no", "tgl_rma", "no_rma_oracle", "amount", "created_at"];
+        return ["rr_no", "tgl_rma", "no_rma_oracle", "created_at"];
     }
 }

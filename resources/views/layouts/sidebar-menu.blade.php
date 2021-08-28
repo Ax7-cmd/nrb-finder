@@ -37,28 +37,28 @@
         </li>
 
         <li class="nav-item">
-            <router-link to="/transportation" class="nav-link">
+            <router-link to="/trp" class="nav-link">
                 <i class="fa fa-truck nav-icon orange"></i>
                 <p>Transportation</p>
             </router-link>
         </li>
 
         <li class="nav-item">
-            <router-link to="/warehouse" class="nav-link">
+            <router-link to="/whs" class="nav-link">
                 <i class="fa fa-warehouse nav-icon green"></i>
                 <p>Warehouse</p>
             </router-link>
         </li>
 
         <li class="nav-item">
-            <router-link to="/accounting" class="nav-link">
+            <router-link to="/acc" class="nav-link">
                 <i class="fa fa-file-alt nav-icon yellow"></i>
                 <p>Accounting</p>
             </router-link>
         </li>
 
         <li class="nav-item">
-            <router-link to="/finance" class="nav-link">
+            <router-link to="/fin" class="nav-link">
                 <i class="fa fa-file-invoice nav-icon yellow"></i>
                 <p>Finance</p>
             </router-link>

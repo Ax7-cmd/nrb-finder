@@ -42,6 +42,11 @@ Vue.use(VueProgressBar, {
 Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
 
+/**
+ * Mask Input
+ */
+ import VueTheMask from 'vue-the-mask'
+ Vue.use(VueTheMask);
 
 /**
  * Routes imports and assigning
